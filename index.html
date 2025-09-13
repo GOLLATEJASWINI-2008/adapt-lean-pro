@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AdaptLearn Pro - Next-Gen Learning Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .nano-gradient {
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 25%, #16213e 50%, #0f3460 75%, #533483 100%);
+        }
+        
+        .card-3d {
+            transform-style: preserve-3d;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(83, 52, 131, 0.3);
+        }
+        
+        .card-3d:hover {
+            transform: rotateY(5deg) rotateX(5deg) translateZ(10px);
+            box-shadow: 0 20px 40px rgba(83, 52, 131, 0.4);
+        }
+        
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .pulse-glow {
+            animation: pulseGlow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes pulseGlow {
+            from { box-shadow: 0 0 20px rgba(83, 52, 131, 0.5); }
+            to { box-shadow: 0 0 30px rgba(83, 52, 131, 0.8); }
+        }
+        
+        .emotion-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+        }
+        
+        .happy { background: #4ade80; }
+        .focused { background: #3b82f6; }
+        .confused { background: #f59e0b; }
+        .frustrated { background: #ef4444; }
+        
+        .progress-ring {
+            transform: rotate(-90deg);
+        }
+        
+        .progress-ring-circle {
+            stroke-dasharray: 251.2;
+            stroke-dashoffset: 251.2;
+            transition: stroke-dashoffset 0.5s ease-in-out;
+        }
+        
+        .hologram {
+            background: linear-gradient(45deg, transparent 30%, rgba(83, 52, 131, 0.1) 50%, transparent 70%);
+            background-size: 200% 200%;
+            animation: hologram 3s linear infinite;
+        }
+        
+        @keyframes hologram {
+            0% { background-position: -200% -200%; }
+            100% { background-position: 200% 200%; }
+        }
+    </style>
+</head>
+<body class="nano-gradient min-h-screen text-white">
+    <!-- Header -->
+    <header class="bg-black/20 backdrop-blur-lg border-b border-purple-500/30 sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <div class="w-10 h-10 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg flex items-center justify-center">
+                        <span class="text-xl font-bold">AL</span>
+                    </div>
+                    <h1 class="text-2xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
+                        AdaptLearn Pro
+                    </h1>
+                </div>
+                
+                <div class="flex items-center space-x-6">
+                    <!-- Language Selector -->
+                    <select class="bg-gray-800/50 border border-purple-500/30 rounded-lg px-3 py-2 text-sm">
+                        <option>🇺🇸 English</option>
+                        <option>🇮🇳 हिंदी</option>
+                        <option>🇪🇸 Español</option>
+                        <option>🇫🇷 Français</option>
+                    </select>
+                    
+                    <!-- Offline Status -->
+                    <div class="flex items-center space-x-2">
+                        <div class="w-3 h-3 bg-green-400 rounded-full pulse-glow"></div>
+                        <span class="text-sm">Online</span>
+                    </div>
+                    
+                    <!-- Emotion Indicator -->
+                    <div class="flex items-center space-x-2">
+                        <span class="emotion-indicator focused" id="emotionIndicator"></span>
+                        <span class="text-sm" id="emotionText">Focused</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Dashboard -->
+    <main class="container mx-auto px-6 py-8">
+        <!-- Welcome Section with AI Buddy -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+            <div class="lg:col-span-2 card-3d bg-gradient-to-r from-purple-900/30 to-blue-900/30 backdrop-blur-lg border border-purple-500/30 rounded-2xl p-8">
+                <div class="flex items-center justify-between mb-6">
+                    <div>
+                        <h2 class="text-3xl font-bold mb-2">Welcome back, Alex! 👋</h2>
+                        <p class="text-gray-300">Ready to continue your BTech journey?</p>
+                    </div>
+                    <div class="text-6xl floating">🎓</div>
+                </div>
+                
+                <!-- Progress Overview -->
+                <div class="grid grid-cols-3 gap-4">
+                    <div class="text-center">
+                        <div class="relative w-16 h-16 mx-auto mb-2">
+                            <svg class="progress-ring w-16 h-16">
+                                <circle class="progress-ring-circle" stroke="#533483" stroke-width="4" fill="transparent" r="40" cx="32" cy="32" style="stroke-dashoffset: 75.36;"/>
+                            </svg>
+                            <div class="absolute inset-0 flex items-center justify-center text-sm font-bold">70%</div>
+                        </div>
+                        <p class="text-sm text-gray-300">Overall Progress</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-green-400 mb-2">1,247</div>
+                        <p class="text-sm text-gray-300">XP Points</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-blue-400 mb-2">Level 12</div>
+                        <p class="text-sm text-gray-300">Current Level</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- AI Learning Buddy -->
+            <div class="card-3d bg-gradient-to-b from-indigo-900/30 to-purple-900/30 backdrop-blur-lg border border-purple-500/30 rounded-2xl p-6">
+                <div class="text-center mb-4">
+                    <div class="w-20 h-20 mx-auto mb-4 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-3xl floating">
+                        🤖
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">ARIA - Your AI Buddy</h3>
+                    <p class="text-sm text-gray-300 mb-4">I'm here to help you learn better!</p>
+                </div>
+                
+                <div class="bg-black/20 rounded-lg p-4 mb-4">
+                    <p class="text-sm">"Based on your learning pattern, I recommend focusing on Data Structures today. You're 85% ready for the next level!"</p>
+                </div>
+                
+                <button class="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 rounded-lg py-2 text-sm font-medium transition-all duration-300">
+                    Chat with ARIA
+                </button>
+            </div>
+        </div>
+
+        <!-- Course Categories -->
+        <div class="mb-8">
+            <h3 class="text-2xl font-bold mb-6">BTech Subjects</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Data Structures -->
+                <div class="card-3d bg-gradient-to-br from-blue-900/30 to-cyan-900/30 backdrop-blur-lg border border-blue-500/30 rounded-xl p-6 cursor-pointer hover:scale-105 transition-all duration-300" onclick="openSubject('ds')">
+                    <div class="text-4xl mb-4">🌳</div>
+                    <h4 class="text-lg font-bold mb-2">Data Structures</h4>
+                    <p class="text-sm text-gray-300 mb-4">Trees, Graphs, Arrays & More</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs bg-blue-500/20 px-2 py-1 rounded">12 Modules</span>
+                        <span class="text-xs text-green-400">75% Complete</span>
+                    </div>
+                </div>
+                
+                <!-- Algorithms -->
+                <div class="card-3d bg-gradient-to-br from-green-900/30 to-emerald-900/30 backdrop-blur-lg border border-green-500/30 rounded-xl p-6 cursor-pointer hover:scale-105 transition-all duration-300" onclick="openSubject('algo')">
+                    <div class="text-4xl mb-4">⚡</div>
+                    <h4 class="text-lg font-bold mb-2">Algorithms</h4>
+                    <p class="text-sm text-gray-300 mb-4">Sorting, Searching, Dynamic Programming</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs bg-green-500/20 px-2 py-1 rounded">15 Modules</span>
+                        <span class="text-xs text-yellow-400">60% Complete</span>
+                    </div>
+                </div>
+                
+                <!-- Database Systems -->
+                <div class="card-3d bg-gradient-to-br from-purple-900/30 to-pink-900/30 backdrop-blur-lg border border-purple-500/30 rounded-xl p-6 cursor-pointer hover:scale-105 transition-all duration-300" onclick="openSubject('db')">
+                    <div class="text-4xl mb-4">🗄️</div>
+                    <h4 class="text-lg font-bold mb-2">Database Systems</h4>
+                    <p class="text-sm text-gray-300 mb-4">SQL, NoSQL, Database Design</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs bg-purple-500/20 px-2 py-1 rounded">10 Modules</span>
+                        <span class="text-xs text-blue-400">45% Complete</span>
+                    </div>
+                </div>
+                
+                <!-- Machine Learning -->
+                <div class="card-3d bg-gradient-to-br from-orange-900/30 to-red-900/30 backdrop-blur-lg border border-orange-500/30 rounded-xl p-6 cursor-pointer hover:scale-105 transition-all duration-300" onclick="openSubject('ml')">
+                    <div class="text-4xl mb-4">🧠</div>
+                    <h4 class="text-lg font-bold mb-2">Machine Learning</h4>
+                    <p class="text-sm text-gray-300 mb-4">Neural Networks, Deep Learning</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs bg-orange-500/20 px-2 py-1 rounded">18 Modules</span>
+                        <span class="text-xs text-red-400">30% Complete</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Gamified Learning Section -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+            <!-- Learning Games -->
+            <div class="card-3d bg-gradient-to-br from-indigo-900/30 to-blue-900/30 backdrop-blur-lg border border-indigo-500/30 rounded-xl p-6">
+                <h3 class="text-xl font-bold mb-4 flex items-center">
+                    🎮 Learning Games
+                    <span class="ml-2 text-xs bg-green-500/20 px-2 py-1 rounded">New!</span>
+                </h3>
+                
+                <div class="space-y-4">
+                    <div class="bg-black/20 rounded-lg p-4 flex items-center justify-between cursor-pointer hover:bg-black/30 transition-all" onclick="startGame('sorting')">
+                        <div class="flex items-center space-x-3">
+                            <div class="text-2xl">🔄</div>
+                            <div>
+                                <h4 class="font-medium">Sorting Algorithm Race</h4>
+                                <p class="text-sm text-gray-300">Visualize and compete with sorting algorithms</p>
+                            </div>
+                        </div>
+                        <div class="text-yellow-400 text-sm">+50 XP</div>
+                    </div>
+                    
+                    <div class="bg-black/20 rounded-lg p-4 flex items-center justify-between cursor-pointer hover:bg-black/30 transition-all" onclick="startGame('memory')">
+                        <div class="flex items-center space-x-3">
+                            <div class="text-2xl">🧩</div>
+                            <div>
+                                <h4 class="font-medium">Memory Management Puzzle</h4>
+                                <p class="text-sm text-gray-300">Optimize memory allocation strategies</p>
+                            </div>
+                        </div>
+                        <div class="text-yellow-400 text-sm">+75 XP</div>
+                    </div>
+                    
+                    <div class="bg-black/20 rounded-lg p-4 flex items-center justify-between cursor-pointer hover:bg-black/30 transition-all" onclick="startGame('network')">
+                        <div class="flex items-center space-x-3">
+                            <div class="text-2xl">🌐</div>
+                            <div>
+                                <h4 class="font-medium">Network Protocol Simulator</h4>
+                                <p class="text-sm text-gray-300">Build and test network configurations</p>
+                            </div>
+                        </div>
+                        <div class="text-yellow-400 text-sm">+100 XP</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Collaborative Learning -->
+            <div class="card-3d bg-gradient-to-br from-pink-900/30 to-purple-900/30 backdrop-blur-lg border border-pink-500/30 rounded-xl p-6">
+                <h3 class="text-xl font-bold mb-4 flex items-center">
+                    👥 Study Groups
+                </h3>
+                
+                <div class="space-y-4">
+                    <div class="bg-black/20 rounded-lg p-4">
+                        <div class="flex items-center justify-between mb-2">
+                            <h4 class="font-medium">Data Structures Study Group</h4>
+                            <span class="text-xs bg-green-500/20 px-2 py-1 rounded">5 online</span>
+                        </div>
+                        <p class="text-sm text-gray-300 mb-3">Currently discussing: Binary Search Trees</p>
+                        <div class="flex items-center space-x-2">
+                            <div class="flex -space-x-2">
+                                <div class="w-6 h-6 bg-blue-500 rounded-full border-2 border-gray-800"></div>
+                                <div class="w-6 h-6 bg-green-500 rounded-full border-2 border-gray-800"></div>
+                                <div class="w-6 h-6 bg-purple-500 rounded-full border-2 border-gray-800"></div>
+                            </div>
+                            <button class="text-xs bg-pink-500/20 hover:bg-pink-500/30 px-3 py-1 rounded transition-all">Join</button>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-black/20 rounded-lg p-4">
+                        <div class="flex items-center justify-between mb-2">
+                            <h4 class="font-medium">ML Project Collaboration</h4>
+                            <span class="text-xs bg-blue-500/20 px-2 py-1 rounded">3 online</span>
+                        </div>
+                        <p class="text-sm text-gray-300 mb-3">Working on: Image Classification Project</p>
+                        <div class="flex items-center space-x-2">
+                            <div class="flex -space-x-2">
+                                <div class="w-6 h-6 bg-orange-500 rounded-full border-2 border-gray-800"></div>
+                                <div class="w-6 h-6 bg-cyan-500 rounded-full border-2 border-gray-800"></div>
+                            </div>
+                            <button class="text-xs bg-pink-500/20 hover:bg-pink-500/30 px-3 py-1 rounded transition-all">Join</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="w-full mt-4 bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600 rounded-lg py-2 text-sm font-medium transition-all duration-300">
+                    Create Study Group
+                </button>
+            </div>
+        </div>
+
+        <!-- Recent Activity & Achievements -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Recent Activity -->
+            <div class="lg:col-span-2 card-3d bg-gradient-to-br from-gray-900/30 to-slate-900/30 backdrop-blur-lg border border-gray-500/30 rounded-xl p-6">
+                <h3 class="text-xl font-bold mb-4">Recent Activity</h3>
+                
+                <div class="space-y-4">
+                    <div class="flex items-center space-x-4 p-3 bg-black/20 rounded-lg">
+                        <div class="text-2xl">✅</div>
+                        <div class="flex-1">
+                            <p class="font-medium">Completed: Binary Search Algorithm</p>
+                            <p class="text-sm text-gray-300">2 hours ago • +25 XP</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center space-x-4 p-3 bg-black/20 rounded-lg">
+                        <div class="text-2xl">🏆</div>
+                        <div class="flex-1">
+                            <p class="font-medium">Achievement Unlocked: Algorithm Master</p>
+                            <p class="text-sm text-gray-300">5 hours ago • +100 XP</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center space-x-4 p-3 bg-black/20 rounded-lg">
+                        <div class="text-2xl">👥</div>
+                        <div class="flex-1">
+                            <p class="font-medium">Joined study group: Database Design</p>
+                            <p class="text-sm text-gray-300">1 day ago</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Achievements -->
+            <div class="card-3d bg-gradient-to-br from-yellow-900/30 to-orange-900/30 backdrop-blur-lg border border-yellow-500/30 rounded-xl p-6">
+                <h3 class="text-xl font-bold mb-4">Achievements</h3>
+                
+                <div class="space-y-3">
+                    <div class="flex items-center space-x-3 p-2 bg-black/20 rounded-lg">
+                        <div class="text-xl">🥇</div>
+                        <div>
+                            <p class="text-sm font-medium">Speed Learner</p>
+                            <p class="text-xs text-gray-300">Complete 5 modules in a day</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center space-x-3 p-2 bg-black/20 rounded-lg">
+                        <div class="text-xl">🎯</div>
+                        <div>
+                            <p class="text-sm font-medium">Perfect Score</p>
+                            <p class="text-xs text-gray-300">Score 100% on 3 quizzes</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center space-x-3 p-2 bg-black/20 rounded-lg opacity-50">
+                        <div class="text-xl">🔥</div>
+                        <div>
+                            <p class="text-sm font-medium">7-Day Streak</p>
+                            <p class="text-xs text-gray-300">Learn for 7 consecutive days</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-4 text-center">
+                    <p class="text-sm text-gray-300">Next: Team Player (2/5)</p>
+                    <div class="w-full bg-gray-700 rounded-full h-2 mt-2">
+                        <div class="bg-gradient-to-r from-yellow-400 to-orange-400 h-2 rounded-full" style="width: 40%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Subject Modal -->
+    <div id="subjectModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden items-center justify-center z-50">
+        <div class="card-3d bg-gradient-to-br from-gray-900 to-slate-900 border border-purple-500/30 rounded-2xl p-8 max-w-4xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center mb-6">
+                <h2 id="modalTitle" class="text-3xl font-bold">Data Structures</h2>
+                <button onclick="closeModal()" class="text-gray-400 hover:text-white text-2xl">&times;</button>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Learning Materials -->
+                <div>
+                    <h3 class="text-xl font-bold mb-4">📚 Study Materials</h3>
+                    <div class="space-y-3">
+                        <div class="bg-black/20 rounded-lg p-4 cursor-pointer hover:bg-black/30 transition-all">
+                            <h4 class="font-medium mb-1">Interactive Lessons</h4>
+                            <p class="text-sm text-gray-300">Visual explanations with animations</p>
+                        </div>
+                        <div class="bg-black/20 rounded-lg p-4 cursor-pointer hover:bg-black/30 transition-all">
+                            <h4 class="font-medium mb-1">Video Tutorials</h4>
+                            <p class="text-sm text-gray-300">Step-by-step video guides</p>
+                        </div>
+                        <div class="bg-black/20 rounded-lg p-4 cursor-pointer hover:bg-black/30 transition-all">
+                            <h4 class="font-medium mb-1">Practice Problems</h4>
+                            <p class="text-sm text-gray-300">Coding challenges and exercises</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Adaptive Features -->
+                <div>
+                    <h3 class="text-xl font-bold mb-4">🎯 Adaptive Learning</h3>
+                    <div class="space-y-3">
+                        <div class="bg-gradient-to-r from-blue-900/30 to-purple-900/30 rounded-lg p-4">
+                            <h4 class="font-medium mb-1">Difficulty: Intermediate</h4>
+                            <p class="text-sm text-gray-300">Adjusted based on your performance</p>
+                        </div>
+                        <div class="bg-gradient-to-r from-green-900/30 to-blue-900/30 rounded-lg p-4">
+                            <h4 class="font-medium mb-1">Learning Style: Visual</h4>
+                            <p class="text-sm text-gray-300">Optimized for your preferences</p>
+                        </div>
+                        <div class="bg-gradient-to-r from-purple-900/30 to-pink-900/30 rounded-lg p-4">
+                            <h4 class="font-medium mb-1">Emotion: Focused</h4>
+                            <p class="text-sm text-gray-300">Content adapted to your mood</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-6 flex space-x-4">
+                <button class="flex-1 bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 rounded-lg py-3 font-medium transition-all duration-300">
+                    Start Learning
+                </button>
+                <button class="flex-1 bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 rounded-lg py-3 font-medium transition-all duration-300">
+                    Take Quiz
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Modal -->
+    <div id="gameModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden items-center justify-center z-50">
+        <div class="card-3d bg-gradient-to-br from-gray-900 to-slate-900 border border-purple-500/30 rounded-2xl p-8 max-w-2xl w-full mx-4">
+            <div class="flex justify-between items-center mb-6">
+                <h2 id="gameTitle" class="text-2xl font-bold">Sorting Algorithm Race</h2>
+                <button onclick="closeGameModal()" class="text-gray-400 hover:text-white text-2xl">&times;</button>
+            </div>
+            
+            <div class="text-center">
+                <div class="text-6xl mb-4">🎮</div>
+                <p class="text-gray-300 mb-6">Get ready to race against time and other players!</p>
+                
+                <div class="bg-black/20 rounded-lg p-6 mb-6">
+                    <h3 class="font-bold mb-4">Game Rules:</h3>
+                    <ul class="text-sm text-gray-300 space-y-2 text-left">
+                        <li>• Sort the array as quickly as possible</li>
+                        <li>• Choose the most efficient algorithm</li>
+                        <li>• Compete with other students</li>
+                        <li>• Earn XP based on performance</li>
+                    </ul>
+                </div>
+                
+                <button class="bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 rounded-lg py-3 px-8 font-medium transition-all duration-300">
+                    Start Game
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Emotion tracking simulation
+        const emotions = ['happy', 'focused', 'confused', 'frustrated'];
+        const emotionTexts = ['Happy', 'Focused', 'Confused', 'Frustrated'];
+        let currentEmotion = 1;
+
+        function updateEmotion() {
+            const indicator = document.getElementById('emotionIndicator');
+            const text = document.getElementById('emotionText');
+            
+            indicator.className = `emotion-indicator ${emotions[currentEmotion]}`;
+            text.textContent = emotionTexts[currentEmotion];
+            
+            // Simulate emotion changes based on learning activity
+            setTimeout(() => {
+                currentEmotion = Math.floor(Math.random() * emotions.length);
+                updateEmotion();
+            }, 10000 + Math.random() * 20000);
+        }
+
+        // Subject modal functions
+        function openSubject(subject) {
+            const modal = document.getElementById('subjectModal');
+            const title = document.getElementById('modalTitle');
+            
+            const subjects = {
+                'ds': 'Data Structures & Algorithms',
+                'algo': 'Advanced Algorithms',
+                'db': 'Database Management Systems',
+                'ml': 'Machine Learning & AI'
+            };
+            
+            title.textContent = subjects[subject] || 'Subject';
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('subjectModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        // Game modal functions
+        function startGame(gameType) {
+            const modal = document.getElementById('gameModal');
+            const title = document.getElementById('gameTitle');
+            
+            const games = {
+                'sorting': 'Sorting Algorithm Race 🏁',
+                'memory': 'Memory Management Puzzle 🧩',
+                'network': 'Network Protocol Simulator 🌐'
+            };
+            
+            title.textContent = games[gameType] || 'Learning Game';
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeGameModal() {
+            const modal = document.getElementById('gameModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        // Simulate offline capability
+        function toggleOfflineMode() {
+            const status = document.querySelector('.pulse-glow').parentElement;
+            const isOnline = status.querySelector('span').textContent === 'Online';
+            
+            if (isOnline) {
+                status.querySelector('.pulse-glow').className = 'w-3 h-3 bg-yellow-400 rounded-full';
+                status.querySelector('span').textContent = 'Offline';
+            } else {
+                status.querySelector('.pulse-glow').className = 'w-3 h-3 bg-green-400 rounded-full pulse-glow';
+                status.querySelector('span').textContent = 'Online';
+            }
+        }
+
+        // Initialize emotion tracking
+        updateEmotion();
+
+        // Add some interactive hover effects
+        document.querySelectorAll('.card-3d').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'rotateY(5deg) rotateX(5deg) translateZ(10px)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'rotateY(0deg) rotateX(0deg) translateZ(0px)';
+            });
+        });
+
+        // Simulate adaptive learning adjustments
+        function simulateAdaptiveLearning() {
+            // This would integrate with real emotion detection and learning analytics
+            console.log('Adaptive learning system active - adjusting content difficulty and presentation style');
+        }
+
+        // Initialize adaptive learning
+        simulateAdaptiveLearning();
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97e57d2040289f50',t:'MTc1Nzc0MzkwMy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
